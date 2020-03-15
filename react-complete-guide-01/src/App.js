@@ -11,13 +11,25 @@ const App = props => {
     ]
   });
 
-  const switchNameHandler = () => {
+  const switchNameHandler = newName => {
     console.log("Was clicked!!");
     // this.state.persons[0].name = "test";
     setPersonsState({
       persons: [
         { name: "Manu", age: 29 },
-        { name: "Max", age: 28 },
+        { name: newName, age: 28 },
+        { name: "Test", age: 100502 }
+      ]
+    });
+  };
+
+  const nameChangedHandler = event => {
+    console.log("Was clicked!!");
+    // this.state.persons[0].name = "test";
+    setPersonsState({
+      persons: [
+        { name: event.target.value, age: 29 },
+        { name: prsonsState.persons[1].name, age: 28 },
         { name: "Test", age: 100502 }
       ]
     });
@@ -26,14 +38,18 @@ const App = props => {
   return (
     <div className="App">
       <h1>Hello world</h1>
-      <button onClick={switchNameHandler}>change name</button>
+      <button onClick={switchNameHandler.bind(this, "Max!")}>
+        change name
+      </button>
       <Person
         name={prsonsState.persons[0].name}
         age={prsonsState.persons[0].age}
+        changed={nameChangedHandler}
       />
       <Person
         name={prsonsState.persons[1].name}
         age={prsonsState.persons[1].age}
+        click={switchNameHandler.bind(this, "Maximilian!")}
       >
         My hobbies: Rasing
       </Person>
