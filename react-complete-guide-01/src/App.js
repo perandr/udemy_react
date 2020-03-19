@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import "./App.css";
+import styles from "./App.css";
 import Person from "./Person/Person";
+// import Radium, { StyleRoot } from "radium";
+// import styled from "styled-components";
+
+// const StyledButton = styled.button`
+
+// `;
 
 const App = props => {
   const [prsonsState, setPersonsState] = useState({
@@ -34,11 +40,10 @@ const App = props => {
     setPersonsState(newPrsonsState);
   };
 
-  return (
-    <div className="App">
-      <h1>Hello world</h1>
-      <button onClick={togglePersonsHandler}>change name</button>
+  let persons = null;
 
+  if (prsonsState.showPersons) {
+    persons = (
       <div>
         {prsonsState.persons.map((person, index) => {
           return (
@@ -52,6 +57,32 @@ const App = props => {
           );
         })}
       </div>
+    );
+    // buttonStyle.backgroundColor = "red";
+    // buttonStyle[":hover"] = {
+    //   backgroundColor: "salmon",
+    //   color: "black"
+    // };
+  }
+
+  const classes = [];
+  const btnStyles = [styles.Button];
+
+  if (prsonsState.persons.length <= 2) {
+    classes.push("red");
+  }
+  if (prsonsState.persons.length <= 1) {
+    classes.push("bold");
+  }
+
+  return (
+    <div className={styles.App}>
+      <h1>Hello world</h1>
+      <p className={classes.join(" ")}>some text</p>
+      <button alt={prsonsState.showPersons} onClick={togglePersonsHandler}>
+        change name
+      </button>
+      {persons}
     </div>
   );
 };
